@@ -1,11 +1,12 @@
 import React from 'react';
 import Layout from './components/Layout/Layout';
+import MapView from './components/Map/MapView';
 
 function App() {
   return (
     <Layout>
-      <div className="flex items-center justify-center w-full h-full text-gray-500">
-        Map will be here
+      <div className="w-full h-full">
+        <MapView />
       </div>
     </Layout>
   );
