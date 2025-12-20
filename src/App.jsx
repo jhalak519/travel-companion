@@ -1,10 +1,13 @@
 import React from 'react';
+import Layout from './components/Layout/Layout';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-blue-600">Travel Companion</h1>
-    </div>
+    <Layout>
+      <div className="flex items-center justify-center w-full h-full text-gray-500">
+        Map will be here
+      </div>
+    </Layout>
   );
 }
 
