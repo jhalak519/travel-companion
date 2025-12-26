@@ -1,17 +1,23 @@
-import React, { useState, useCallback } from 'react';
-import Map, { NavigationControl, GeolocateControl } from 'react-map-gl/mapbox';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import Map, { NavigationControl, GeolocateControl, Marker } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import { DEFAULT_COORDINATES, MAP_STYLES } from '../../constants/mapConfig';
 
-const MapView = ({ onBoundsChange }) => {
+const MapView = ({ activeLocation, onBoundsChange }) => {
     const token = import.meta.env.VITE_MAPBOX_TOKEN;
     const [isMapLoaded, setIsMapLoaded] = useState(false);
+    const mapRef = useRef(null);
 
-    // We can use uncontrolled map but listen to events
-    const onMove = useCallback((evt) => {
-        // We can expose viewState or bounds here
-        // For now, we prefer onMoveEnd for bounds updates to avoid API spam
-    }, []);
+    useEffect(() => {
+        if (activeLocation && mapRef.current) {
+            mapRef.current.flyTo({
+                center: [activeLocation.longitude, activeLocation.latitude],
+                zoom: activeLocation.zoom || 13,
+                essential: true
+            });
+        }
+    }, [activeLocation]);
 
     const onMoveEnd = useCallback((evt) => {
         if (onBoundsChange) {
@@ -40,16 +46,26 @@ const MapView = ({ onBoundsChange }) => {
                 </div>
             )}
             <Map
+                ref={mapRef}
                 initialViewState={DEFAULT_COORDINATES}
                 style={{ width: '100%', height: '100%' }}
                 mapStyle={MAP_STYLES.STREETS}
                 mapboxAccessToken={token}
-                onMove={onMove}
                 onMoveEnd={onMoveEnd}
                 onLoad={onLoad}
             >
                 <NavigationControl position="bottom-right" />
                 <GeolocateControl position="top-left" />
+
+                {activeLocation && (
+                    <Marker
+                        longitude={activeLocation.longitude}
+                        latitude={activeLocation.latitude}
+                        anchor="bottom"
+                    >
+                        <FaMapMarkerAlt className="text-4xl text-red-600 drop-shadow-md" />
+                    </Marker>
+                )}
             </Map>
         </div>
     );
