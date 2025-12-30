@@ -3,8 +3,9 @@ import Map, { NavigationControl, GeolocateControl, Marker } from 'react-map-gl/m
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { DEFAULT_COORDINATES, MAP_STYLES } from '../../constants/mapConfig';
+import PlaceMarker from './PlaceMarker';
 
-const MapView = ({ activeLocation, onBoundsChange }) => {
+const MapView = ({ activeLocation, onBoundsChange, places = [], onPlaceSelect }) => {
     const token = import.meta.env.VITE_MAPBOX_TOKEN;
     const [isMapLoaded, setIsMapLoaded] = useState(false);
     const mapRef = useRef(null);
@@ -66,6 +67,14 @@ const MapView = ({ activeLocation, onBoundsChange }) => {
                         <FaMapMarkerAlt className="text-4xl text-red-600 drop-shadow-md" />
                     </Marker>
                 )}
+
+                {places?.map((place, i) => (
+                    <PlaceMarker
+                        key={place.location_id || i}
+                        place={place}
+                        onClick={onPlaceSelect}
+                    />
+                ))}
             </Map>
         </div>
     );

@@ -9,10 +9,9 @@ function App() {
   const [places, setPlaces] = useState([]);
   const [bounds, setBounds] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [type] = useState('restaurants'); // Default type for now
+  const [type] = useState('restaurants');
 
   useEffect(() => {
-    // Only fetch if we have bounds (and maybe after debounce, but simplified for now)
     if (bounds) {
       setLoading(true);
       const sw = bounds.getSouthWest();
@@ -20,11 +19,9 @@ function App() {
 
       getPlacesData(type, { lat: sw.lat, lng: sw.lng }, { lat: ne.lat, lng: ne.lng })
         .then((data) => {
-          // Basic filtering
           const validPlaces = data?.filter(place => place.name && place.num_reviews > 0) || [];
           setPlaces(validPlaces);
           setLoading(false);
-          console.log("Fetched places:", validPlaces.length);
         });
     }
   }, [bounds, type]);
@@ -36,6 +33,9 @@ function App() {
         latitude: place.center[1],
         zoom: 13
       });
+    } else {
+      // Handle place click from map (Commit 14/18)
+      console.log("Selected place:", place.name);
     }
   };
 
@@ -52,6 +52,8 @@ function App() {
         <MapView
           activeLocation={activeLocation}
           onBoundsChange={handleBoundsChange}
+          places={places}
+          onPlaceSelect={handlePlaceSelect}
         />
         {loading && (
           <div className="absolute top-20 left-4 z-50 bg-white px-3 py-1 rounded shadow text-sm font-semibold text-blue-600">
