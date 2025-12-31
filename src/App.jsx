@@ -10,6 +10,7 @@ function App() {
   const [bounds, setBounds] = useState(null);
   const [loading, setLoading] = useState(false);
   const [type] = useState('restaurants');
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   useEffect(() => {
     if (bounds) {
@@ -33,9 +34,11 @@ function App() {
         latitude: place.center[1],
         zoom: 13
       });
+      // If search result, clear selected place? Or treat as selection?
+      setSelectedPlace(null);
     } else {
-      // Handle place click from map (Commit 14/18)
-      console.log("Selected place:", place.name);
+      // Place from map
+      setSelectedPlace(place);
     }
   };
 
@@ -54,6 +57,8 @@ function App() {
           onBoundsChange={handleBoundsChange}
           places={places}
           onPlaceSelect={handlePlaceSelect}
+          selectedPlace={selectedPlace}
+          onPopupClose={() => setSelectedPlace(null)}
         />
         {loading && (
           <div className="absolute top-20 left-4 z-50 bg-white px-3 py-1 rounded shadow text-sm font-semibold text-blue-600">

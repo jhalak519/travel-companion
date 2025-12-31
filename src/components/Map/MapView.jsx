@@ -4,8 +4,9 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { DEFAULT_COORDINATES, MAP_STYLES } from '../../constants/mapConfig';
 import PlaceMarker from './PlaceMarker';
+import PlacePopup from './PlacePopup';
 
-const MapView = ({ activeLocation, onBoundsChange, places = [], onPlaceSelect }) => {
+const MapView = ({ activeLocation, onBoundsChange, places = [], onPlaceSelect, selectedPlace, onPopupClose }) => {
     const token = import.meta.env.VITE_MAPBOX_TOKEN;
     const [isMapLoaded, setIsMapLoaded] = useState(false);
     const mapRef = useRef(null);
@@ -54,6 +55,7 @@ const MapView = ({ activeLocation, onBoundsChange, places = [], onPlaceSelect })
                 mapboxAccessToken={token}
                 onMoveEnd={onMoveEnd}
                 onLoad={onLoad}
+                onClick={() => onPopupClose && onPopupClose()}
             >
                 <NavigationControl position="bottom-right" />
                 <GeolocateControl position="top-left" />
@@ -75,6 +77,10 @@ const MapView = ({ activeLocation, onBoundsChange, places = [], onPlaceSelect })
                         onClick={onPlaceSelect}
                     />
                 ))}
+
+                {selectedPlace && (
+                    <PlacePopup place={selectedPlace} onClose={onPopupClose} />
+                )}
             </Map>
         </div>
     );
