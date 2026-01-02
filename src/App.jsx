@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from './components/Layout/Layout';
 import MapView from './components/Map/MapView';
-import SearchBar from './components/Search/SearchBar';
+import Sidebar from './components/Sidebar/Sidebar';
 import { getPlacesData } from './services/rapidApiService';
 
 function App() {
@@ -34,10 +34,8 @@ function App() {
         latitude: place.center[1],
         zoom: 13
       });
-      // If search result, clear selected place? Or treat as selection?
       setSelectedPlace(null);
     } else {
-      // Place from map
       setSelectedPlace(place);
     }
   };
@@ -48,23 +46,26 @@ function App() {
 
   return (
     <Layout>
-      <div className="absolute top-4 left-4 z-50 w-full max-w-sm">
-        <SearchBar onSelect={handlePlaceSelect} />
-      </div>
-      <div className="w-full h-full relative">
-        <MapView
-          activeLocation={activeLocation}
-          onBoundsChange={handleBoundsChange}
-          places={places}
+      <div className="flex w-full h-full overflow-hidden relative">
+        <Sidebar
           onPlaceSelect={handlePlaceSelect}
-          selectedPlace={selectedPlace}
-          onPopupClose={() => setSelectedPlace(null)}
+          places={places}
         />
-        {loading && (
-          <div className="absolute top-20 left-4 z-50 bg-white px-3 py-1 rounded shadow text-sm font-semibold text-blue-600">
-            Finding places...
-          </div>
-        )}
+        <div className="flex-1 h-full relative">
+          <MapView
+            activeLocation={activeLocation}
+            onBoundsChange={handleBoundsChange}
+            places={places}
+            onPlaceSelect={handlePlaceSelect}
+            selectedPlace={selectedPlace}
+            onPopupClose={() => setSelectedPlace(null)}
+          />
+          {loading && (
+            <div className="absolute top-4 right-4 z-10 bg-white px-3 py-1 rounded shadow text-sm font-semibold text-blue-600">
+              Finding places...
+            </div>
+          )}
+        </div>
       </div>
     </Layout>
   );
