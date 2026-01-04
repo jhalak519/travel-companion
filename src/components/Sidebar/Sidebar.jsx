@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SearchBar from '../Search/SearchBar';
+import PlacesList from './PlacesList';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const Sidebar = ({ onPlaceSelect, places, loading, selectedPlace, onBack }) => {
@@ -7,10 +8,9 @@ const Sidebar = ({ onPlaceSelect, places, loading, selectedPlace, onBack }) => {
 
     return (
         <>
-            {/* Toggle Button for Mobile/Desktop */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="absolute top-4 left-4 z-20 md:hidden bg-white p-2 rounded-md shadow-md"
+                className="absolute top-4 left-4 z-20 md:hidden bg-white p-2 rounded-md shadow-md text-gray-700"
             >
                 {isOpen ? <FaChevronLeft /> : <FaChevronRight />}
             </button>
@@ -25,10 +25,18 @@ const Sidebar = ({ onPlaceSelect, places, loading, selectedPlace, onBack }) => {
                 </div>
 
                 <div className="flex-1 overflow-y-auto bg-gray-50 p-4">
-                    {/* Place List will go here (Commit 17) */}
-                    <div className="text-gray-400 text-sm text-center mt-10">
-                        {places?.length > 0 ? `Found ${places.length} places` : "Search or move map to find places"}
-                    </div>
+                    <PlacesList
+                        places={places}
+                        loading={loading}
+                        selectedPlace={selectedPlace}
+                        onPlaceSelect={onPlaceSelect}
+                    />
+
+                    {!loading && places?.length === 0 && (
+                        <div className="text-gray-400 text-sm text-center mt-10">
+                            Search or move map to find places
+                        </div>
+                    )}
                 </div>
             </div>
         </>
