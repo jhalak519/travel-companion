@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import PlaceCard from './PlaceCard';
 
 const PlacesList = ({ places, selectedPlace, onPlaceSelect, loading }) => {
+    const [elRefs, setElRefs] = useState([]);
+
+    useEffect(() => {
+        setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()));
+    }, [places]);
+
     if (loading) {
         return (
             <div className="space-y-3">
@@ -29,7 +35,7 @@ const PlacesList = ({ places, selectedPlace, onPlaceSelect, loading }) => {
                     place={place}
                     selected={Number(place.location_id) === Number(selectedPlace?.location_id)}
                     onClick={() => onPlaceSelect(place)}
-                    refProp={/* We can handle ref scrolling later */ null}
+                    refProp={elRefs[i]}
                 />
             ))}
         </div>
