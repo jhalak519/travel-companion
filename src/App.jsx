@@ -44,6 +44,11 @@ function App() {
     setBounds(newBounds);
   };
 
+  const handleTypeChange = (newType) => {
+    setType(newType);
+    setSelectedPlace(null);
+  };
+
   return (
     <Layout>
       <div className="flex w-full h-full overflow-hidden relative">
@@ -53,7 +58,7 @@ function App() {
           loading={loading}
           selectedPlace={selectedPlace}
           type={type}
-          onTypeChange={setType}
+          onTypeChange={handleTypeChange}
         />
         <div className="flex-1 h-full relative">
           <MapView
