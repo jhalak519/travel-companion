@@ -9,7 +9,7 @@ function App() {
   const [places, setPlaces] = useState([]);
   const [bounds, setBounds] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [type] = useState('restaurants');
+  const [type, setType] = useState('restaurants');
   const [selectedPlace, setSelectedPlace] = useState(null);
 
   useEffect(() => {
@@ -50,6 +50,10 @@ function App() {
         <Sidebar
           onPlaceSelect={handlePlaceSelect}
           places={places}
+          loading={loading}
+          selectedPlace={selectedPlace}
+          type={type}
+          onTypeChange={setType}
         />
         <div className="flex-1 h-full relative">
           <MapView
