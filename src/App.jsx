@@ -7,9 +7,11 @@ import { getPlacesData } from './services/rapidApiService';
 function App() {
   const [activeLocation, setActiveLocation] = useState(null);
   const [places, setPlaces] = useState([]);
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [bounds, setBounds] = useState(null);
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState('restaurants');
+  const [rating, setRating] = useState(0);
   const [selectedPlace, setSelectedPlace] = useState(null);
 
   useEffect(() => {
@@ -26,6 +28,10 @@ function App() {
         });
     }
   }, [bounds, type]);
+
+  useEffect(() => {
+    setFilteredPlaces(places.filter(place => Number(place.rating) >= rating));
+  }, [rating, places]);
 
   const handlePlaceSelect = (place) => {
     if (place.center) {
@@ -46,6 +52,7 @@ function App() {
 
   const handleTypeChange = (newType) => {
     setType(newType);
+    setRating(0); // Reset rating on type change
     setSelectedPlace(null);
   };
 
@@ -54,17 +61,19 @@ function App() {
       <div className="flex w-full h-full overflow-hidden relative">
         <Sidebar
           onPlaceSelect={handlePlaceSelect}
-          places={places}
+          places={filteredPlaces}
           loading={loading}
           selectedPlace={selectedPlace}
           type={type}
           onTypeChange={handleTypeChange}
+          rating={rating}
+          onRatingChange={setRating}
         />
         <div className="flex-1 h-full relative">
           <MapView
             activeLocation={activeLocation}
             onBoundsChange={handleBoundsChange}
-            places={places}
+            places={filteredPlaces}
             onPlaceSelect={handlePlaceSelect}
             selectedPlace={selectedPlace}
             onPopupClose={() => setSelectedPlace(null)}

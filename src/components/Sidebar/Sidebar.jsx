@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import SearchBar from '../Search/SearchBar';
 import PlacesList from './PlacesList';
 import FilterBar from './FilterBar';
+import RatingFilter from './RatingFilter';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const Sidebar = ({ onPlaceSelect, places, loading, selectedPlace, onBack, type, onTypeChange }) => {
+const Sidebar = ({ onPlaceSelect, places, loading, selectedPlace, onBack, type, onTypeChange, rating, onRatingChange }) => {
     const [isOpen, setIsOpen] = useState(true);
 
     return (
@@ -24,6 +25,7 @@ const Sidebar = ({ onPlaceSelect, places, loading, selectedPlace, onBack, type, 
                     <h2 className="text-xl font-bold text-gray-800 mb-2">Explore</h2>
                     <SearchBar onSelect={onPlaceSelect} />
                     <FilterBar type={type} onTypeChange={onTypeChange} />
+                    <RatingFilter rating={rating} onRatingChange={onRatingChange} />
                 </div>
 
                 <div className="flex-1 overflow-y-auto bg-gray-50 p-4">
