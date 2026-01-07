@@ -13,6 +13,7 @@ function App() {
   const [type, setType] = useState('restaurants');
   const [rating, setRating] = useState(0);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [sortOption, setSortOption] = useState('rating');
 
   useEffect(() => {
     if (bounds) {
@@ -30,8 +31,19 @@ function App() {
   }, [bounds, type]);
 
   useEffect(() => {
-    setFilteredPlaces(places.filter(place => Number(place.rating) >= rating));
-  }, [rating, places]);
+    let result = places.filter(place => Number(place.rating) >= rating);
+
+    // Sorting
+    if (sortOption === 'rating') {
+      result.sort((a, b) => Number(b.rating) - Number(a.rating));
+    } else if (sortOption === 'reviews') {
+      result.sort((a, b) => Number(b.num_reviews) - Number(a.num_reviews));
+    } else if (sortOption === 'ranking') {
+      result.sort((a, b) => Number(a.ranking_position || 9999) - Number(b.ranking_position || 9999));
+    }
+
+    setFilteredPlaces(result);
+  }, [rating, places, sortOption]);
 
   const handlePlaceSelect = (place) => {
     if (place.center) {
@@ -52,7 +64,8 @@ function App() {
 
   const handleTypeChange = (newType) => {
     setType(newType);
-    setRating(0); // Reset rating on type change
+    setRating(0);
+    setSortOption('rating');
     setSelectedPlace(null);
   };
 
@@ -68,6 +81,8 @@ function App() {
           onTypeChange={handleTypeChange}
           rating={rating}
           onRatingChange={setRating}
+          sortOption={sortOption}
+          onSortChange={setSortOption}
         />
         <div className="flex-1 h-full relative">
           <MapView

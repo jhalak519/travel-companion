@@ -3,9 +3,10 @@ import SearchBar from '../Search/SearchBar';
 import PlacesList from './PlacesList';
 import FilterBar from './FilterBar';
 import RatingFilter from './RatingFilter';
+import SortDropdown from './SortDropdown';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const Sidebar = ({ onPlaceSelect, places, loading, selectedPlace, onBack, type, onTypeChange, rating, onRatingChange }) => {
+const Sidebar = ({ onPlaceSelect, places, loading, selectedPlace, onBack, type, onTypeChange, rating, onRatingChange, sortOption, onSortChange }) => {
     const [isOpen, setIsOpen] = useState(true);
 
     return (
@@ -25,7 +26,14 @@ const Sidebar = ({ onPlaceSelect, places, loading, selectedPlace, onBack, type, 
                     <h2 className="text-xl font-bold text-gray-800 mb-2">Explore</h2>
                     <SearchBar onSelect={onPlaceSelect} />
                     <FilterBar type={type} onTypeChange={onTypeChange} />
-                    <RatingFilter rating={rating} onRatingChange={onRatingChange} />
+                    <div className="flex gap-4">
+                        <div className="flex-1">
+                            <RatingFilter rating={rating} onRatingChange={onRatingChange} />
+                        </div>
+                        <div className="flex-1">
+                            <SortDropdown sortOption={sortOption} onSortChange={onSortChange} />
+                        </div>
+                    </div>
                 </div>
 
                 <div className="flex-1 overflow-y-auto bg-gray-50 p-4">
