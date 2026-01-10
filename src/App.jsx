@@ -33,7 +33,6 @@ function App() {
   useEffect(() => {
     let result = places.filter(place => Number(place.rating) >= rating);
 
-    // Sorting
     if (sortOption === 'rating') {
       result.sort((a, b) => Number(b.rating) - Number(a.rating));
     } else if (sortOption === 'reviews') {
@@ -77,6 +76,7 @@ function App() {
           places={filteredPlaces}
           loading={loading}
           selectedPlace={selectedPlace}
+          onBack={() => setSelectedPlace(null)}
           type={type}
           onTypeChange={handleTypeChange}
           rating={rating}

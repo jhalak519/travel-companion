@@ -4,10 +4,33 @@ import PlacesList from './PlacesList';
 import FilterBar from './FilterBar';
 import RatingFilter from './RatingFilter';
 import SortDropdown from './SortDropdown';
+import PlaceDetailsModal from '../PlaceDetails/PlaceDetailsModal';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const Sidebar = ({ onPlaceSelect, places, loading, selectedPlace, onBack, type, onTypeChange, rating, onRatingChange, sortOption, onSortChange }) => {
     const [isOpen, setIsOpen] = useState(true);
+
+    if (selectedPlace) {
+        // Show Details View (Full Sidebar)
+        // We might want to clear filters or keeping them is fine.
+        // onBack should clear selectedPlace in App
+        return (
+            <div className={`
+          absolute md:relative top-0 left-0 h-full bg-white shadow-xl z-20 transition-all duration-300 ease-in-out flex flex-col
+          ${isOpen ? 'w-full md:w-[400px] translate-x-0' : 'w-0 -translate-x-full md:translate-x-0 md:w-0 overflow-hidden'}
+        `}>
+                <PlaceDetailsModal place={selectedPlace} onBack={onBack} />
+
+                {/* Mobile toggle logic if needed inside modal? Usually we need the toggle outside if closed */}
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="absolute top-4 -right-10 z-20 md:hidden bg-white p-2 rounded-md shadow-md text-gray-700"
+                >
+                    {isOpen ? <FaChevronLeft /> : <FaChevronRight />}
+                </button>
+            </div>
+        );
+    }
 
     return (
         <>
