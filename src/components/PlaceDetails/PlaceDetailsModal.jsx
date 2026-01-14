@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaArrowLeft, FaStar, FaMapMarkerAlt, FaPhone, FaGlobe, FaClock } from 'react-icons/fa';
+import ReviewsList from './ReviewsList';
 
 const PlaceDetailsModal = ({ place, onBack }) => {
     return (
@@ -72,6 +73,9 @@ const PlaceDetailsModal = ({ place, onBack }) => {
                         </div>
                     </div>
                 )}
+
+                {/* Reviews Section */}
+                <ReviewsList reviews={place.reviews} />
             </div>
         </div>
     );
