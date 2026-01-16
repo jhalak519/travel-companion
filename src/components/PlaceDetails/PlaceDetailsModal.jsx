@@ -1,8 +1,9 @@
 import React from 'react';
-import { FaArrowLeft, FaStar, FaMapMarkerAlt, FaPhone, FaGlobe, FaClock } from 'react-icons/fa';
+import { FaArrowLeft, FaStar, FaMapMarkerAlt, FaPhone, FaGlobe, FaClock, FaDirections } from 'react-icons/fa';
 import ReviewsList from './ReviewsList';
+import DirectionsPanel from './DirectionsPanel';
 
-const PlaceDetailsModal = ({ place, onBack }) => {
+const PlaceDetailsModal = ({ place, onBack, onGetDirections, route, onClearRoute }) => {
     return (
         <div className="h-full flex flex-col bg-white">
             <div className="relative h-64 flex-shrink-0">
@@ -20,7 +21,16 @@ const PlaceDetailsModal = ({ place, onBack }) => {
             </div>
 
             <div className="flex-1 overflow-y-auto p-6">
-                <h2 className="text-2xl font-bold text-gray-900">{place.name}</h2>
+                <div className="flex justify-between items-start">
+                    <h2 className="text-2xl font-bold text-gray-900">{place.name}</h2>
+                    <button
+                        onClick={onGetDirections}
+                        className="bg-blue-600 text-white px-3 py-1.5 rounded-lg flex items-center shadow hover:bg-blue-700 transition"
+                    >
+                        <FaDirections className="mr-1" />
+                        Directions
+                    </button>
+                </div>
 
                 <div className="flex items-center mt-2 flex-wrap gap-4">
                     <div className="flex items-center">
@@ -30,6 +40,11 @@ const PlaceDetailsModal = ({ place, onBack }) => {
                     </div>
                     <span className="text-gray-600 font-medium">{place.price_level}</span>
                 </div>
+
+                {/* Directions Panel if route exists */}
+                {route && (
+                    <DirectionsPanel route={route} onClose={onClearRoute} />
+                )}
 
                 <div className="mt-6 space-y-3">
                     {place.address && (
@@ -74,7 +89,6 @@ const PlaceDetailsModal = ({ place, onBack }) => {
                     </div>
                 )}
 
-                {/* Reviews Section */}
                 <ReviewsList reviews={place.reviews} />
             </div>
         </div>

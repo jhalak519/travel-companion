@@ -1,12 +1,22 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import Map, { NavigationControl, GeolocateControl, Marker } from 'react-map-gl/mapbox';
+import Map, { NavigationControl, GeolocateControl, Marker, Source, Layer } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { DEFAULT_COORDINATES, MAP_STYLES } from '../../constants/mapConfig';
 import PlaceMarker from './PlaceMarker';
 import PlacePopup from './PlacePopup';
 
-const MapView = ({ activeLocation, onBoundsChange, places = [], onPlaceSelect, selectedPlace, onPopupClose }) => {
+const routeLayer = {
+    id: 'route',
+    type: 'line',
+    paint: {
+        'line-color': '#3b82f6',
+        'line-width': 5,
+        'line-opacity': 0.75
+    }
+};
+
+const MapView = ({ activeLocation, onBoundsChange, places = [], onPlaceSelect, selectedPlace, onPopupClose, route }) => {
     const token = import.meta.env.VITE_MAPBOX_TOKEN;
     const [isMapLoaded, setIsMapLoaded] = useState(false);
     const mapRef = useRef(null);
@@ -80,6 +90,13 @@ const MapView = ({ activeLocation, onBoundsChange, places = [], onPlaceSelect, s
 
                 {selectedPlace && (
                     <PlacePopup place={selectedPlace} onClose={onPopupClose} />
+                )}
+
+                {/* Route Layer */}
+                {route && (
+                    <Source type="geojson" data={route.geometry}>
+                        <Layer {...routeLayer} />
+                    </Source>
                 )}
             </Map>
         </div>
