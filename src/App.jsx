@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Layout from './components/Layout/Layout';
-import MapView from './components/Map/MapView';
-import Sidebar from './components/Sidebar/Sidebar';
-import { getPlacesData } from './services/rapidApiService';
-import { getDirections } from './services/directionsService';
+import React, { useState, useEffect } from "react";
+import Layout from "./components/Layout/Layout";
+import MapView from "./components/Map/MapView";
+import Sidebar from "./components/Sidebar/Sidebar";
+import { getPlacesData } from "./services/rapidApiService";
+import { getDirections } from "./services/directionsService";
 
 function App() {
   const [activeLocation, setActiveLocation] = useState(null);
@@ -11,10 +11,10 @@ function App() {
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [bounds, setBounds] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [type, setType] = useState('restaurants');
+  const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState(0);
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [sortOption, setSortOption] = useState('rating');
+  const [sortOption, setSortOption] = useState("rating");
   const [userLocation, setUserLocation] = useState(null); // Need user location for directions
   const [route, setRoute] = useState(null);
 
@@ -22,7 +22,11 @@ function App() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => {
       setUserLocation([pos.coords.longitude, pos.coords.latitude]);
-      setActiveLocation({ longitude: pos.coords.longitude, latitude: pos.coords.latitude, zoom: 13 });
+      setActiveLocation({
+        longitude: pos.coords.longitude,
+        latitude: pos.coords.latitude,
+        zoom: 13,
+      });
     });
   }, []);
 
@@ -32,24 +36,32 @@ function App() {
       const sw = bounds.getSouthWest();
       const ne = bounds.getNorthEast();
 
-      getPlacesData(type, { lat: sw.lat, lng: sw.lng }, { lat: ne.lat, lng: ne.lng })
-        .then((data) => {
-          const validPlaces = data?.filter(place => place.name && place.num_reviews > 0) || [];
-          setPlaces(validPlaces);
-          setLoading(false);
-        });
+      getPlacesData(
+        type,
+        { lat: sw.lat, lng: sw.lng },
+        { lat: ne.lat, lng: ne.lng },
+      ).then((data) => {
+        const validPlaces =
+          data?.filter((place) => place.name && place.num_reviews > 0) || [];
+        setPlaces(validPlaces);
+        setLoading(false);
+      });
     }
   }, [bounds, type]);
 
   useEffect(() => {
-    let result = places.filter(place => Number(place.rating) >= rating);
+    let result = places.filter((place) => Number(place.rating) >= rating);
 
-    if (sortOption === 'rating') {
+    if (sortOption === "rating") {
       result.sort((a, b) => Number(b.rating) - Number(a.rating));
-    } else if (sortOption === 'reviews') {
+    } else if (sortOption === "reviews") {
       result.sort((a, b) => Number(b.num_reviews) - Number(a.num_reviews));
-    } else if (sortOption === 'ranking') {
-      result.sort((a, b) => Number(a.ranking_position || 9999) - Number(b.ranking_position || 9999));
+    } else if (sortOption === "ranking") {
+      result.sort(
+        (a, b) =>
+          Number(a.ranking_position || 9999) -
+          Number(b.ranking_position || 9999),
+      );
     }
 
     setFilteredPlaces(result);
@@ -60,7 +72,7 @@ function App() {
       setActiveLocation({
         longitude: place.center[0],
         latitude: place.center[1],
-        zoom: 13
+        zoom: 13,
       });
       setSelectedPlace(null);
     } else {
@@ -75,7 +87,7 @@ function App() {
   const handleTypeChange = (newType) => {
     setType(newType);
     setRating(0);
-    setSortOption('rating');
+    setSortOption("rating");
     setSelectedPlace(null);
     setRoute(null);
   };
@@ -83,11 +95,14 @@ function App() {
   const handleGetDirections = async () => {
     if (userLocation && selectedPlace) {
       const start = userLocation;
-      const end = [Number(selectedPlace.longitude), Number(selectedPlace.latitude)];
+      const end = [
+        Number(selectedPlace.longitude),
+        Number(selectedPlace.latitude),
+      ];
       const routeData = await getDirections(start, end);
       setRoute(routeData);
     } else {
-      alert('User location not found. Please enable location services.');
+      alert("User location not found. Please enable location services.");
     }
   };
 
@@ -99,7 +114,10 @@ function App() {
           places={filteredPlaces}
           loading={loading}
           selectedPlace={selectedPlace}
-          onBack={() => { setSelectedPlace(null); setRoute(null); }}
+          onBack={() => {
+            setSelectedPlace(null);
+            setRoute(null);
+          }}
           type={type}
           onTypeChange={handleTypeChange}
           rating={rating}
