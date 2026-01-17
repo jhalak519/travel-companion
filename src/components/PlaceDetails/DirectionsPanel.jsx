@@ -11,14 +11,14 @@ const DirectionsPanel = ({ route, onClose }) => {
     <div className="bg-white p-4 rounded-lg shadow-md mt-4 border border-gray-100">
       <div className="flex justify-between items-center mb-4">
         <h3 className="font-bold text-gray-800">Route</h3>
-        <div className="text-sm font-medium text-blue-600">
+        <div className="text-sm font-medium text-pink-500">
           {duration} min ({distance} km)
         </div>
       </div>
 
-      <div className="bg-blue-50 p-3 rounded-md mb-4 flex items-center gap-3">
-        <FaCar className="text-blue-500" />
-        <span className="text-sm text-blue-800">
+      <div className="bg-pink-50 p-3 rounded-md mb-4 flex items-center gap-3">
+        <FaCar className="text-pink-500" />
+        <span className="text-sm text-pink-800">
           Fastest route via {route.legs[0]?.summary}
         </span>
       </div>

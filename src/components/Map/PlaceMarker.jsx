@@ -21,7 +21,7 @@ const PlaceMarker = ({ place, onClick }) => {
         onClick(place);
       }}
     >
-      <div className="text-blue-600 hover:text-blue-800 cursor-pointer transform hover:scale-110 transition-transform bg-white rounded-full p-1 shadow-md border border-gray-200">
+      <div className="text-pink-500 hover:text-pink-700 cursor-pointer transform hover:scale-110 transition-transform bg-white rounded-full p-1 shadow-md border border-gray-200">
         <Icon className="text-lg" />
       </div>
     </Marker>

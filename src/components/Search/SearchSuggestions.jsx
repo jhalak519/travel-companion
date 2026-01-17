@@ -9,7 +9,7 @@ const SearchSuggestions = ({ suggestions, onSelect }) => {
         <li
           key={place.id}
           onClick={() => onSelect(place)}
-          className="px-4 py-3 hover:bg-blue-50 cursor-pointer transition-colors duration-150 flex flex-col border-b border-gray-50 last:border-0"
+          className="px-4 py-3 hover:bg-pink-50 cursor-pointer transition-colors duration-150 flex flex-col border-b border-gray-50 last:border-0"
         >
           <span className="font-medium text-gray-800 text-sm">
             {place.text}

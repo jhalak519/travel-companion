@@ -9,7 +9,7 @@ const SortDropdown = ({ sortOption, onSortChange }) => {
       <select
         value={sortOption}
         onChange={(e) => onSortChange(e.target.value)}
-        className="w-full p-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full p-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500"
       >
         <option value="rating">Rating (High to Low)</option>
         <option value="reviews">Most Reviewed</option>

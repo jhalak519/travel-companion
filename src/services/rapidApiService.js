@@ -10,15 +10,19 @@ export const getPlacesData = async (type, sw, ne) => {
   }
 
   try {
+    const params = {
+      bl_latitude: sw.lat,
+      tr_latitude: ne.lat,
+      bl_longitude: sw.lng,
+      tr_longitude: ne.lng,
+    };
+
+    console.log(`Fetching ${type} with params:`, params);
+
     const {
       data: { data },
     } = await axios.get(`${RAPIDAPI_BASE_URL}/${type}/list-in-boundary`, {
-      params: {
-        bl_latitude: sw.lat,
-        tr_latitude: ne.lat,
-        bl_longitude: sw.lng,
-        tr_longitude: ne.lng,
-      },
+      params,
       headers: {
         "x-rapidapi-key": API_KEY,
         "x-rapidapi-host": RAPIDAPI_HOST,

@@ -4,6 +4,7 @@ import MapView from "./components/Map/MapView";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { getPlacesData } from "./services/rapidApiService";
 import { getDirections } from "./services/directionsService";
+import { FavoritesProvider } from "./context/FavoritesContext";
 
 function App() {
   const [activeLocation, setActiveLocation] = useState(null);
@@ -107,45 +108,47 @@ function App() {
   };
 
   return (
-    <Layout>
-      <div className="flex w-full h-full overflow-hidden relative">
-        <Sidebar
-          onPlaceSelect={handlePlaceSelect}
-          places={filteredPlaces}
-          loading={loading}
-          selectedPlace={selectedPlace}
-          onBack={() => {
-            setSelectedPlace(null);
-            setRoute(null);
-          }}
-          type={type}
-          onTypeChange={handleTypeChange}
-          rating={rating}
-          onRatingChange={setRating}
-          sortOption={sortOption}
-          onSortChange={setSortOption}
-          onGetDirections={handleGetDirections} // Handle in PlaceDetailsModal (needs Update)
-          route={route}
-          onClearRoute={() => setRoute(null)}
-        />
-        <div className="flex-1 h-full relative">
-          <MapView
-            activeLocation={activeLocation}
-            onBoundsChange={handleBoundsChange}
-            places={filteredPlaces}
+    <FavoritesProvider>
+      <Layout>
+        <div className="flex w-full h-full overflow-hidden relative">
+          <Sidebar
             onPlaceSelect={handlePlaceSelect}
+            places={filteredPlaces}
+            loading={loading}
             selectedPlace={selectedPlace}
-            onPopupClose={() => setSelectedPlace(null)}
+            onBack={() => {
+              setSelectedPlace(null);
+              setRoute(null);
+            }}
+            type={type}
+            onTypeChange={handleTypeChange}
+            rating={rating}
+            onRatingChange={setRating}
+            sortOption={sortOption}
+            onSortChange={setSortOption}
+            onGetDirections={handleGetDirections} // Handle in PlaceDetailsModal (needs Update)
             route={route}
+            onClearRoute={() => setRoute(null)}
           />
-          {loading && (
-            <div className="absolute top-4 right-4 z-10 bg-white px-3 py-1 rounded shadow text-sm font-semibold text-blue-600">
-              Finding places...
-            </div>
-          )}
+          <div className="flex-1 h-full relative">
+            <MapView
+              activeLocation={activeLocation}
+              onBoundsChange={handleBoundsChange}
+              places={filteredPlaces}
+              onPlaceSelect={handlePlaceSelect}
+              selectedPlace={selectedPlace}
+              onPopupClose={() => setSelectedPlace(null)}
+              route={route}
+            />
+            {loading && (
+              <div className="absolute top-4 right-4 z-10 bg-white px-3 py-1 rounded shadow text-sm font-semibold text-pink-500">
+                Finding places...
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </FavoritesProvider>
   );
 }
 

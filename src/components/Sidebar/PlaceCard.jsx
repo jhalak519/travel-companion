@@ -7,7 +7,7 @@ const PlaceCard = ({ place, selected, refProp, onClick }) => {
 
   return (
     <div
-      className={`bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer flex gap-3 mb-3 border ${selected ? "border-blue-500 ring-1 ring-blue-500" : "border-transparent"}`}
+      className={`bg-white p-3 rounded-lg shadow-sm hover:shadow-[0_4px_20px_rgba(236,72,153,0.3)] transition-all duration-300 cursor-pointer flex gap-3 mb-3 border ${selected ? "border-pink-500 ring-1 ring-pink-500" : "border-transparent"}`}
       onClick={onClick}
     >
       <div className="w-24 h-24 flex-shrink-0">

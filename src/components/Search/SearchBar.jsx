@@ -40,12 +40,12 @@ const SearchBar = ({ onSelect }) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search destination..."
-          className="w-full pl-10 pr-10 py-3 rounded-lg shadow-lg border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200 text-gray-800"
+          className="w-full pl-10 pr-10 py-3 rounded-lg shadow-lg border-0 focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all duration-200 text-gray-800"
         />
         <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
         {loading && (
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-            <div className="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+            <div className="animate-spin h-4 w-4 border-2 border-pink-500 border-t-transparent rounded-full"></div>
           </div>
         )}
       </div>

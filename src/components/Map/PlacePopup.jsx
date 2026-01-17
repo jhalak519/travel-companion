@@ -38,7 +38,7 @@ const PlacePopup = ({ place, onClose }) => {
           <span className="text-xs text-gray-600 font-medium">
             {place.price_level}
           </span>
-          <button className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 transition-colors">
+          <button className="text-xs bg-pink-500 text-white px-2 py-1 rounded hover:bg-pink-600 transition-colors">
             Details
           </button>
         </div>

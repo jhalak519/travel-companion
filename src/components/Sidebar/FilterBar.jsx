@@ -12,11 +12,10 @@ const FilterBar = ({ type, onTypeChange }) => {
         <button
           key={option.value}
           onClick={() => onTypeChange(option.value)}
-          className={`px-3 py-1 text-sm rounded-full whitespace-nowrap transition-colors border ${
-            type === option.value
-              ? "bg-blue-600 text-white border-blue-600"
-              : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-          }`}
+          className={`px-3 py-1 text-sm rounded-full whitespace-nowrap transition-colors border ${type === option.value
+            ? "bg-pink-500 text-white border-pink-500 hover:bg-pink-400"
+            : "bg-white text-gray-700 border-gray-300 hover:bg-pink-50 hover:border-pink-200"
+            }`}
         >
           {option.label}
         </button>

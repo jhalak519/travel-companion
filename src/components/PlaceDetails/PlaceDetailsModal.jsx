@@ -7,9 +7,12 @@ import {
   FaGlobe,
   FaClock,
   FaDirections,
+  FaHeart,
+  FaRegHeart
 } from "react-icons/fa";
 import ReviewsList from "./ReviewsList";
 import DirectionsPanel from "./DirectionsPanel";
+import { useFavorites } from "../../context/FavoritesContext";
 
 const PlaceDetailsModal = ({
   place,
@@ -18,6 +21,17 @@ const PlaceDetailsModal = ({
   route,
   onClearRoute,
 }) => {
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const isFav = isFavorite(place.location_id);
+
+  const toggleFavorite = () => {
+    if (isFav) {
+      removeFavorite(place.location_id);
+    } else {
+      addFavorite(place);
+    }
+  };
+
   return (
     <div className="h-full flex flex-col bg-white">
       <div className="relative h-64 flex-shrink-0">
@@ -36,9 +50,15 @@ const PlaceDetailsModal = ({
         )}
         <button
           onClick={onBack}
-          className="absolute top-4 left-4 bg-white/90 p-2 rounded-full shadow-md text-gray-700 hover:text-blue-600 transition-colors"
+          className="absolute top-4 left-4 bg-white/90 p-2 rounded-full shadow-md text-gray-700 hover:text-pink-500 transition-colors"
         >
           <FaArrowLeft />
+        </button>
+        <button
+          onClick={toggleFavorite}
+          className="absolute top-4 right-4 bg-white/90 p-2 rounded-full shadow-md text-pink-500 hover:scale-110 transition-transform"
+        >
+          {isFav ? <FaHeart className="text-xl" /> : <FaRegHeart className="text-xl" />}
         </button>
       </div>
 
@@ -47,7 +67,7 @@ const PlaceDetailsModal = ({
           <h2 className="text-2xl font-bold text-gray-900">{place.name}</h2>
           <button
             onClick={onGetDirections}
-            className="bg-blue-600 text-white px-3 py-1.5 rounded-lg flex items-center shadow hover:bg-blue-700 transition"
+            className="bg-pink-500 text-white px-3 py-1.5 rounded-lg flex items-center shadow hover:bg-pink-600 transition"
           >
             <FaDirections className="mr-1" />
             Directions
@@ -84,7 +104,7 @@ const PlaceDetailsModal = ({
             </div>
           )}
           {place.website && (
-            <div className="flex items-center text-blue-600">
+            <div className="flex items-center text-pink-500">
               <FaGlobe className="mr-3 flex-shrink-0" />
               <a
                 href={place.website}

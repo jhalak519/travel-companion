@@ -3,19 +3,21 @@ import React from "react";
 const RatingFilter = ({ rating, onRatingChange }) => {
   return (
     <div className="mt-4 px-2">
-      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider flex justify-between">
-        <span>Minimum Rating</span>
-        <span>{rating}+</span>
+      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">
+        Rating
       </label>
-      <input
-        type="range"
-        min="0"
-        max="5"
-        step="0.5"
+      <select
         value={rating}
         onChange={(e) => onRatingChange(Number(e.target.value))}
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2 accent-blue-600"
-      />
+        className="w-full p-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-500"
+      >
+        <option value={0}>Any</option>
+        <option value={1}>1.0+</option>
+        <option value={2}>2.0+</option>
+        <option value={3}>3.0+</option>
+        <option value={4}>4.0+</option>
+        <option value={5}>5.0</option>
+      </select>
     </div>
   );
 };
