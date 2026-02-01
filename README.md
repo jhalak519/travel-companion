@@ -1,16 +1,68 @@
-# React + Vite
+# Travel Companion
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Your ultimate travel companion application to discover restaurants, hotels, and attractions around you. Built with React and Mapbox.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Interactive Map**: Explore places on a dynamic map using Mapbox.
+- **Discover Places**: Find restaurants, hotels, and attractions based on your location.
+- **Search & Filter**: Filter places by rating and sort them by reviews or ranking.
+- **Place Details**: View detailed information including images, awards, cuisine, and contact info.
+- **Favorites**: Save your favorite places for quick access.
+- **Directions**: Get directions from your current location to a selected place.
+- **Responsive Design**: Works seamlessly on desktop and mobile devices.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React, Vite
+- **Styling**: Tailwind CSS
+- **Map Integration**: Mapbox GL JS (`react-map-gl`)
+- **Data Source**: RapidAPI (Travel Advisor API)
+- **Icons**: React Icons
+- **HTTP Client**: Axios
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Before you begin, ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+
+You also need API keys for:
+- [Mapbox](https://www.mapbox.com/)
+- [RapidAPI (Travel Advisor)](https://rapidapi.com/apidojo/api/travel-advisor)
+
+## Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd travel-companion
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up Environment Variables**
+   Create a `.env` file in the root directory and add your API keys:
+   ```env
+   VITE_MAPBOX_TOKEN=your_mapbox_access_token
+   VITE_RAPIDAPI_KEY=your_rapidapi_key
+   ```
+
+4. **Run the application**
+   ```bash
+   npm run dev
+   ```
+
+## Usage
+
+- **Browse the Map**: Move around the map to automatically load places in that area.
+- **Filter**: Use the sidebar to switch between Restaurants, Hotels, and Attractions.
+- **View Details**: Click on a marker or a list item to see more details.
+- **Get Directions**: Select a place and click "Get Directions" to see the route.
+
+## License
+
+This project is licensed under the MIT License.
