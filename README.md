@@ -2,6 +2,10 @@
 
 Your ultimate travel companion application to discover restaurants, hotels, and attractions around you. Built with React and Mapbox.
 
+# Demo
+
+https://travel-companion-jhalak.netlify.app/
+
 ## Features
 
 - **Interactive Map**: Explore places on a dynamic map using Mapbox.
