@@ -88,7 +88,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-# dist
+dist
 
 # Gatsby files
 .cache/
@@ -121,4 +121,7 @@ out
 .pnp.*
 
 # Vite
-# dist
+dist
+
+# Local Netlify folder
+.netlify

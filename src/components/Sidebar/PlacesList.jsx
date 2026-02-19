@@ -1,10 +1,12 @@
 import React, { useState, useEffect, createRef } from "react";
+import PropTypes from "prop-types";
 import PlaceCard from "./PlaceCard";
 
 const PlacesList = ({ places, selectedPlace, onPlaceSelect, loading }) => {
   const [elRefs, setElRefs] = useState([]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setElRefs((refs) =>
       Array(places?.length)
         .fill()
@@ -49,6 +51,18 @@ const PlacesList = ({ places, selectedPlace, onPlaceSelect, loading }) => {
       ))}
     </div>
   );
+};
+
+PlacesList.propTypes = {
+  places: PropTypes.array,
+  selectedPlace: PropTypes.object,
+  onPlaceSelect: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
+
+PlacesList.defaultProps = {
+  places: [],
+  selectedPlace: null,
 };
 
 export default PlacesList;

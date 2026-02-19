@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import SearchBar from "../Search/SearchBar";
-import PlacesList from "./PlacesList";
-import FilterBar from "./FilterBar";
-import RatingFilter from "./RatingFilter";
-import SortDropdown from "./SortDropdown";
-import PlaceDetailsModal from "../PlaceDetails/PlaceDetailsModal";
-import FavoritesPanel from "./FavoritesPanel";
+import PropTypes from "prop-types";
+import SearchBar from "@/components/Search/SearchBar";
+import PlacesList from "@/components/Sidebar/PlacesList";
+import FilterBar from "@/components/Sidebar/FilterBar";
+import RatingFilter from "@/components/Sidebar/RatingFilter";
+import SortDropdown from "@/components/Sidebar/SortDropdown";
+import PlaceDetailsModal from "@/components/PlaceDetails/PlaceDetailsModal";
+import FavoritesPanel from "@/components/Sidebar/FavoritesPanel";
 import { FaChevronLeft, FaChevronRight, FaHeart } from "react-icons/fa";
 
 const Sidebar = ({
@@ -115,6 +116,23 @@ const Sidebar = ({
             </div>
         </>
     );
+};
+
+Sidebar.propTypes = {
+    onPlaceSelect: PropTypes.func.isRequired,
+    places: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    selectedPlace: PropTypes.object,
+    onBack: PropTypes.func.isRequired,
+    type: PropTypes.string.isRequired,
+    onTypeChange: PropTypes.func.isRequired,
+    rating: PropTypes.number.isRequired,
+    onRatingChange: PropTypes.func.isRequired,
+    sortOption: PropTypes.string.isRequired,
+    onSortChange: PropTypes.func.isRequired,
+    onGetDirections: PropTypes.func.isRequired,
+    route: PropTypes.object,
+    onClearRoute: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

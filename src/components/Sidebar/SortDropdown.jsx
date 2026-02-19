@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const SortDropdown = ({ sortOption, onSortChange }) => {
   return (
@@ -17,6 +18,11 @@ const SortDropdown = ({ sortOption, onSortChange }) => {
       </select>
     </div>
   );
+};
+
+SortDropdown.propTypes = {
+  sortOption: PropTypes.string.isRequired,
+  onSortChange: PropTypes.func.isRequired,
 };
 
 export default SortDropdown;

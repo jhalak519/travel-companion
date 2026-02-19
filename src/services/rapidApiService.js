@@ -1,5 +1,5 @@
 import axios from "axios";
-import { RAPIDAPI_BASE_URL, RAPIDAPI_HOST } from "../constants/config";
+import { RAPIDAPI_BASE_URL, RAPIDAPI_HOST } from "@/constants/config";
 
 const API_KEY = import.meta.env.VITE_RAPIDAPI_KEY;
 
@@ -17,7 +17,6 @@ export const getPlacesData = async (type, sw, ne) => {
       tr_longitude: ne.lng,
     };
 
-    console.log(`Fetching ${type} with params:`, params);
 
     const {
       data: { data },

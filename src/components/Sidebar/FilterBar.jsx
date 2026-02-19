@@ -1,5 +1,6 @@
 import React from "react";
-import { PLACE_TYPES } from "../../constants/placeTypes";
+import PropTypes from "prop-types";
+import { PLACE_TYPES } from "@/constants/placeTypes";
 
 const FilterBar = ({ type, onTypeChange }) => {
   return (
@@ -22,6 +23,11 @@ const FilterBar = ({ type, onTypeChange }) => {
       ))}
     </div>
   );
+};
+
+FilterBar.propTypes = {
+  type: PropTypes.string.isRequired,
+  onTypeChange: PropTypes.func.isRequired,
 };
 
 export default FilterBar;

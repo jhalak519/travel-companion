@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 const FavoritesContext = createContext();
 
@@ -6,9 +6,14 @@ export const FavoritesProvider = ({ children }) => {
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
-        const saved = localStorage.getItem('travel_favorites');
-        if (saved) {
-            setFavorites(JSON.parse(saved));
+        try {
+            const saved = localStorage.getItem('travel_favorites');
+            if (saved) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
+                setFavorites(JSON.parse(saved));
+            }
+        } catch {
+            localStorage.removeItem('travel_favorites');
         }
     }, []);
 
@@ -40,4 +45,4 @@ export const FavoritesProvider = ({ children }) => {
     );
 };
 
-export const useFavorites = () => useContext(FavoritesContext);
+export default FavoritesContext;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { useFavorites } from '../../context/FavoritesContext';
+import PropTypes from 'prop-types';
+import { useFavorites } from '@/context/useFavorites';
 import PlaceCard from './PlaceCard';
 
 const FavoritesPanel = ({ onPlaceSelect, onBack }) => {
@@ -18,9 +19,9 @@ const FavoritesPanel = ({ onPlaceSelect, onBack }) => {
                         No favorites yet. <br /> Heart a place to save it!
                     </div>
                 ) : (
-                    favorites.map((place, i) => (
+                    favorites.map((place) => (
                         <PlaceCard
-                            key={place.location_id || i}
+                            key={place.location_id}
                             place={place}
                             onClick={() => onPlaceSelect(place)}
                         />
@@ -29,6 +30,11 @@ const FavoritesPanel = ({ onPlaceSelect, onBack }) => {
             </div>
         </div>
     );
+};
+
+FavoritesPanel.propTypes = {
+    onPlaceSelect: PropTypes.func.isRequired,
+    onBack: PropTypes.func.isRequired,
 };
 
 export default FavoritesPanel;

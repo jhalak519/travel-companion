@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   FaArrowLeft,
   FaStar,
@@ -12,7 +13,7 @@ import {
 } from "react-icons/fa";
 import ReviewsList from "./ReviewsList";
 import DirectionsPanel from "./DirectionsPanel";
-import { useFavorites } from "../../context/FavoritesContext";
+import { useFavorites } from "@/context/useFavorites";
 
 const PlaceDetailsModal = ({
   place,
@@ -133,9 +134,9 @@ const PlaceDetailsModal = ({
               Cuisine
             </h3>
             <div className="flex flex-wrap gap-2">
-              {place.cuisine.map((tag, i) => (
+              {place.cuisine.map((tag) => (
                 <span
-                  key={i}
+                  key={tag.key || tag.name}
                   className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm"
                 >
                   {tag.name}
@@ -149,6 +150,14 @@ const PlaceDetailsModal = ({
       </div>
     </div>
   );
+};
+
+PlaceDetailsModal.propTypes = {
+  place: PropTypes.object.isRequired,
+  onBack: PropTypes.func.isRequired,
+  onGetDirections: PropTypes.func.isRequired,
+  route: PropTypes.object,
+  onClearRoute: PropTypes.func.isRequired,
 };
 
 export default PlaceDetailsModal;

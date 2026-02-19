@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { FaStar, FaMapMarkerAlt } from "react-icons/fa";
 
 const PlaceCard = ({ place, selected, refProp, onClick }) => {
@@ -64,6 +65,17 @@ const PlaceCard = ({ place, selected, refProp, onClick }) => {
       </div>
     </div>
   );
+};
+
+PlaceCard.propTypes = {
+  place: PropTypes.object.isRequired,
+  selected: PropTypes.bool,
+  refProp: PropTypes.object,
+  onClick: PropTypes.func.isRequired,
+};
+
+PlaceCard.defaultProps = {
+  selected: false,
 };
 
 export default PlaceCard;

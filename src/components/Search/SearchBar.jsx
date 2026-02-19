@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { FaSearch } from "react-icons/fa";
-import useDebounce from "../../hooks/useDebounce";
-import { searchLocations } from "../../services/mapboxService";
+import useDebounce from "@/hooks/useDebounce";
+import { searchLocations } from "@/services/mapboxService";
 import SearchSuggestions from "./SearchSuggestions";
 
 const SearchBar = ({ onSelect }) => {
@@ -53,6 +54,10 @@ const SearchBar = ({ onSelect }) => {
       <SearchSuggestions suggestions={suggestions} onSelect={handleSelect} />
     </div>
   );
+};
+
+SearchBar.propTypes = {
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default SearchBar;
